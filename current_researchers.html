@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Researchers</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            border-radius: 8px;
+            display: inline-block;
+            width: calc(33.333% - 32px);
+            box-sizing: border-box;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Researchers</h1>
+    <div id="researcherContainer">
+        <!-- Dynamically generated researcher cards will go here -->
+    </div>
+    <script>
+        fetch('https://raw.githubusercontent.com/sourovps/foodresearchers/gh-pages/submissions/researchers.json')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('researcherContainer');
+            data.forEach(researcher => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h2>${researcher.name}</h2>
+                    <p>ID: ${researcher.studentId}</p>
+                    <p>Batch: ${researcher.batch}</p>
+                    <p>Research Interest: ${researcher.researchInterest}</p>
+                    <img src="data:image/png;base64,${researcher.photo}" alt="${researcher.name}">
+                `;
+                container.appendChild(card);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
