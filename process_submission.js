@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const submissionsDir = path.join(__dirname, 'submissions');
-const imagesDir = path.join(__dirname, 'images');
 const researchersFile = path.join(__dirname, 'current_researchers.html');
 
 fs.readdir(submissionsDir, (err, files) => {
@@ -12,8 +11,6 @@ fs.readdir(submissionsDir, (err, files) => {
 
     files.forEach(file => {
         const data = JSON.parse(fs.readFileSync(path.join(submissionsDir, file)));
-        const imgPath = path.join(imagesDir, data.studentId + path.extname(data.photo));
-        fs.writeFileSync(imgPath, Buffer.from(data.photo, 'base64'));
 
         researchers += `
             <div class="card">
@@ -21,7 +18,7 @@ fs.readdir(submissionsDir, (err, files) => {
                 <p>ID: ${data.studentId}</p>
                 <p>Batch: ${data.batch}</p>
                 <p>Research Interest: ${data.researchInterest}</p>
-                <img src="images/${data.studentId}${path.extname(data.photo)}" alt="${data.name}">
+                <img src="data:image/png;base64,${data.photo}" alt="${data.name}">
             </div>
         `;
     });
