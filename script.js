@@ -19,7 +19,7 @@ document.getElementById('studentForm').addEventListener('submit', function(event
             photo: base64Image
         };
 
-        fetch('https://api.github.com/repos/sourovps/foodresearchers/contents/submissions/' + studentId + '.json', {
+        fetch(`https://api.github.com/repos/sourovps/foodresearchers/contents/submissions/${studentId}.json`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,15 +29,19 @@ document.getElementById('studentForm').addEventListener('submit', function(event
                 content: btoa(JSON.stringify(submission))
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.commit) {
-                alert('Information submitted successfully!');
-            } else {
-                alert('Submission failed.');
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
             }
+            return response.json();
         })
-        .catch(error => console.error('Error:', error));
+        .then(data => {
+            alert('Information submitted successfully!');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Submission failed.');
+        });
     };
 
     reader.readAsDataURL(photo);
