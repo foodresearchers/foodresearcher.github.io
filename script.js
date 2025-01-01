@@ -22,7 +22,6 @@ document.getElementById('studentForm').addEventListener('submit', function(event
         fetch('https://api.github.com/repos/sourovps/foodresearchers/contents/submissions/' + studentId + '.json', {
             method: 'PUT',
             headers: {
-                'Authorization': 'token YOUR_GITHUB_TOKEN',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
