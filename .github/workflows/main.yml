@@ -1,0 +1,23 @@
+name: Handle Student Submissions
+
+on:
+  push:
+    paths:
+      - "submissions/*.json"
+
+jobs:
+  process_submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Process submissions
+        run: |
+          mkdir -p images
+          node process_submission.js
