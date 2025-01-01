@@ -23,7 +23,7 @@
         <!-- Dynamically generated researcher cards will go here -->
     </div>
     <script>
-        fetch('https://raw.githubusercontent.com/sourovps/foodresearchers/gh-pages/submissions/researchers.json')
+        fetch('https://raw.githubusercontent.com/foodresearchers/foodresearcher.github.io/gh-pages/submissions/researchers.json')
         .then(response => response.json())
         .then(data => {
             const container = document.getElementById('researcherContainer');
