@@ -19,14 +19,15 @@ document.getElementById('studentForm').addEventListener('submit', function(event
             photo: base64Image
         };
 
-        fetch(`https://api.github.com/repos/sourovps/foodresearchers/contents/submissions/${studentId}.json`, {
+        fetch(`https://api.github.com/repos/foodresearchers/foodresearcher.github.io/contents/submissions/${studentId}.json`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 message: 'New student submission',
-                content: btoa(JSON.stringify(submission))
+                content: btoa(JSON.stringify(submission)),
+                sha: ''  // Leave empty for new files
             })
         })
         .then(response => {
