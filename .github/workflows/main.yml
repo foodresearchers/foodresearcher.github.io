@@ -19,5 +19,4 @@ jobs:
 
       - name: Process submissions
         run: |
-          mkdir -p images
           node process_submission.js
